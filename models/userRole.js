@@ -2,11 +2,11 @@ module.exports = (sequelize, DataTypes) => {
     const UserRole = sequelize.define(
         "user_role", {
             user_id: {
-                type: DataTypes.UUID,
+                type: DataTypes.INTEGER,
                 allowNull: false,
             },
             role_id: {
-                type: DataTypes.UUID,
+                type: DataTypes.INTEGER,
                 allowNull: false,
             }
         }
@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
             user,
             role,
         } = models
-        UserRole.belongsTo(staff, {
+        UserRole.belongsTo(user, {
             foreignKey: 'user_id'
         })
         UserRole.belongsTo(role, {

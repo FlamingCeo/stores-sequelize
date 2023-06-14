@@ -4,10 +4,11 @@ const express = require('express');
 const app = express();
 const connectDB = require('./db/connect');
 const port = process.env.PORT || 3000;
+app.use(express.json()); //this is important to recive req.body
 
 
 //router
-const authRouter = require('./routes/auth');
+const {authRouter,userRouter} = require('./routes');
 
 
 // error handler
@@ -23,7 +24,7 @@ app.get('/', (req, res) => {
 
 app.get('/migrate', (req, res) => {
   const db = require("./models");
-    db.sequelize.sync()
+    db.sequelize.sync({force: true})
       .then(() => {
         console.log("Synced db.");
         res.send('All database tables are now synced');
@@ -36,6 +37,7 @@ app.get('/migrate', (req, res) => {
   });
 //auth routes
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/users', userRouter);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 

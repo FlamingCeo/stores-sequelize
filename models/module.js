@@ -2,18 +2,16 @@ module.exports = (sequelize, DataTypes) => {
     const Module = sequelize.define(
         "module", {
             id: {
-                type: DataTypes.UUID,
-                defaultValue: sequelize.UUIDV4,
+                type: DataTypes.INTEGER,
+                autoIncrement: true, // Set auto-increment property
                 primaryKey: true,
-                allowNull: false,
-                unique: true
             },
             name: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
             parent_id: {
-                type: DataTypes.UUID,
+                type: DataTypes.INTEGER,
                 defaultValue: null
             }
         }
